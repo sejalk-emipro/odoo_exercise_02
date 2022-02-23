@@ -1,17 +1,17 @@
 # -*- coding :utf-8 -*-
 {
-    'name':'res_localization_ept',
+    'name':'employee_mgmt_ept',
     'category':'Utility',
     'version':'1.1',
     'author':'Emipro Technology Pvt. Ltd.',
     'description':"""
-    This module for the demonstration of the country data
+    This module for the demonstration of the student info
     """,
     'website':'https://www.emiprotechnologies.com',
     'depends':['sales_team'],
-    'data':['security/ir.model.access.csv','views/res_country_ept.xml','views/res_state_ept.xml','views/res_city_ept .xml'],
+    'data':['views/employee_ept.xml','views/employee_dept_shift.xml','views/employee_department.xml'],
     'demo':[],
-    'sequence':15,
+    'sequence':17,
     'auto_install':False,
     'application':False,
     'installable':True

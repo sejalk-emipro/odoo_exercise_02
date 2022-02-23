@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_department_ept_tree" model="ir.ui.view">
+            <field name="name">department_tree</field>
+            <field name="model">employee.department.ept</field>
+            <field name="arch" type="xml">
+                <tree string="Department Tree">
+                    <field name="name"/>
+                    <field name="depart_manager_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_department_ept_form" model="ir.ui.view">
+            <field name="name">department_form</field>
+            <field name="model">employee.department.ept</field>
+            <field name="arch" type="xml">
+                <form string="Department">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="depart_manager_id" widget="selection"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="view_department_ept_search" model="ir.ui.view">
+            <field name="name">department_tree</field>
+            <field name="model">employee.department.ept</field>
+            <field name="arch" type="xml">
+                <search string="Department Search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_department_ept" model="ir.actions.act_window">
+            <field name="name">Department</field>
+            <field name="res_model">employee.department.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_department_ept_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the department</p>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_department_sub1" name="Department" parent="menu_shift_sub" action="action_department_ept"/>
+    </data>
+</openerp>

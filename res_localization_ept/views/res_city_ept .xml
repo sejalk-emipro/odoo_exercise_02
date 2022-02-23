@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_city_ept_tree" model="ir.ui.view">
+            <field name="name">City_tree</field>
+            <field name="model">res.city.ept</field>
+            <field name="arch" type="xml">
+                <tree string="City Data" editable="top">
+                    <field name="name"/>
+                    <field name="state_id" widget="selection"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_city_ept_search" model="ir.ui.view">
+            <field name="name">City_search</field>
+            <field name="model">res.city.ept</field>
+            <field name="arch" type="xml">
+                <search string="City Search">
+                    <field name="name"/>
+                    <field name="state_id"/>
+                    <group expand="0" string="Group by">
+                        <filter name="filter_state" string="State" context="{'group_by':'state_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_city_ept">
+            <field name="name">City</field>
+            <field name="res_model">res.city.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_city_ept_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the city details</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_city_ept_sub1" parent="menu_country_sub" string="Cities" action="action_city_ept"/>
+    </data>
+</openerp>

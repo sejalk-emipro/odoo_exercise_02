@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_student_ept,User : Student Info,model_student_ept,base.group_sale_salesman,1,1,1,1
+access_res_course_ept,User : Course Info,model_course_ept,base.group_sale_salesman,1,1,1,1

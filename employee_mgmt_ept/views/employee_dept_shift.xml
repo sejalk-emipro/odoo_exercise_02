@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_shift_tree" model="ir.ui.view">
+            <field name="name">shift_tree</field>
+            <field name="model">employee.department.shift.ept</field>
+            <field name="arch" type="xml">
+                <tree string="Department Shift" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_shift_search" model="ir.ui.view">
+            <field name="name">shift_form</field>
+            <field name="model">employee.department.shift.ept</field>
+            <field name="arch" type="xml">
+                <search string="Department Shift">
+                      <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_shift_ept">
+            <field name="name">Shift</field>
+            <field name="res_model">employee.department.shift.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_shift_search"/>
+            <field name="help" type="html">
+                <p>
+                    Here you can enter the details of the shift.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_shift_root" name="HR"/>
+        <menuitem name="Employees" id="menu_shift_sub" parent="menu_shift_root"/>
+        <menuitem id="menu_shift_sub1" name="Employee Shifts" parent="menu_shift_sub" action="action_shift_ept"/>
+    </data>
+</openerp>

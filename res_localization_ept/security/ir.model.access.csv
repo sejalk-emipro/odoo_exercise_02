@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_country_ept,User : Country,model_res_country_ept,base.group_sale_salesman,1,1,1,1
+access_res_state_ept,User : State,model_res_state_ept,base.group_sale_salesman,1,1,1,1
+access_res_state_ept,User : City,model_res_city_ept,base.group_sale_salesman,1,1,1,1

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+          <record id="view_employee_ept_tree" model="ir.ui.view">
+              <field name="name">Employee_tree</field>
+              <field name="model">employee.ept</field>
+              <field name="arch" type="xml">
+                  <tree name="Employee Data">
+                      <field name="name"/>
+                      <field name="gender"/>
+                      <field name="hire_date"/>
+                      <field name="job_type"/>
+                      <field name="position"/>
+                  </tree>
+              </field>
+          </record>
+
+        <record id="view_employee_ept_form" model="ir.ui.view">
+              <field name="name">Employee_form</field>
+              <field name="model">employee.ept</field>
+              <field name="arch" type="xml">
+                  <form name="Employee Data">
+                      <sheet>
+                          <group>
+                              <group>
+                                  <field name="name"/>
+                                  <field name="gender"/>
+                                  <field name="hire_date"/>
+                                  <field name="job_type"/>
+                                  <field name="position"/>
+                              </group>
+                              <group>
+                                  <field name="salary"/>
+                                  <field name="is_manager"/>
+                                  <field name="manager_id" options='{"no_open": True, "no_create": True}'/>
+                                  <field name="user_id"/>
+                                  <field name="department_id"/>
+                                  <field name="shift_id"/>
+                                  <field name="increment_percentage"/>
+                              </group>
+                          </group>
+                          <notebook>
+                              <page string="Employee">
+                                  <field name="employee_ids"/>
+                              </page>
+                          </notebook>
+                      </sheet>
+
+                  </form>
+              </field>
+        </record>
+
+         <record id="view_employee_ept_search" model="ir.ui.view">
+              <field name="name">Employee_search</field>
+              <field name="model">employee.ept</field>
+              <field name="arch" type="xml">
+                  <search name="Employee Data">
+                      <field name="name"/>
+                      <field name="position"/>
+                      <filter name="filter_Permanent" string="Permanent" domain="[('job_type','=','Permanent')]"/>
+                      <filter name="filter_Adhoc" string="Adhoc" domain="[('job_type','=','Adhoc')]"/>
+                      <group expand="0" string="group_by">
+                          <filter name="filter_gender" string="Gender" domain="[]" context="{'group_by':'gender'}"/>
+                          <filter name="filter_jobtype" string="Job Type" domain="[]" context="{'group_by':'job_type'}"/>
+                          <filter name="filter_department" string="Department" domain="[]" context="{'group_by':'department_id'}"/>
+
+                      </group>
+                  </search>
+              </field>
+         </record>
+
+        <record id="action_employee_ept" model="ir.actions.act_window">
+            <field name="name">Employee</field>
+            <field name="res_model">employee.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_employee_ept_search"/>
+            <field name="help" type="html">
+                <p>
+                    Here you can enter the details of the shift.
+                </p>
+            </field>
+        </record>
+
+         <menuitem id="menu_employee_sub1" name="Employee" parent="menu_shift_sub" action="action_employee_ept"/>
+
+    </data>
+</openerp>

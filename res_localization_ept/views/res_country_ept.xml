@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_res_country_ept_tree" model="ir.ui.view">
+            <field name="name">country_tree</field>
+            <field name="model">res.country.ept</field>
+            <field name="arch" type="xml">
+                <tree string="Country Data">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_country_ept_form" model="ir.ui.view">
+            <field name="name">Country</field>
+            <field name="model">res.country.ept</field>
+            <field name="arch" type="xml">
+                <form string="Country Data">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page>
+                                <field name="state_ids" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_country_ept_search">
+            <field name="name">country_search</field>
+            <field name="model">res.country.ept</field>
+            <field name="arch" type="xml">
+                <search string="Country Search">
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_country_ept" model="ir.actions.act_window">
+            <field name="name">Country Data</field>
+            <field name="res_model">res.country.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_country_ept_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the country data</p>
+            </field>
+        </record>
+        <menuitem id="menu_country_ept_root" name="Localization"/>
+        <menuitem name="Localization" id="menu_country_sub" parent="menu_country_ept_root"/>
+        <menuitem id="menu_country_sub1" name="Countries" parent="menu_country_sub" action="action_country_ept"/>
+    </data>
+</openerp>

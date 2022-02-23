@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_student_info_tree" model="ir.ui.view">
+            <field name="name">student_tree</field>
+            <field name="model">student.ept</field>
+            <field name="arch" type="xml">
+                <tree string="Student Info">
+                    <field name="name"/>
+                    <field name="stud_class"/>
+                    <field name="dob"/>
+                    <field name="courses_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_student_info_form" model="ir.ui.view">
+            <field name="name">Student_form</field>
+            <field name="model">student.ept</field>
+            <field name="arch" type="xml">
+                <form string="Student Info">
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="name"/>
+                                 <field name="stud_class"/>
+                                 <field name="dob"/>
+                                 <field name="courses_ids"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_student_info_search">
+            <field name="name">student_search</field>
+             <field name="model">student.ept</field>
+            <field name="arch" type="xml">
+                <search string="student info">
+                     <field name="name"/>
+                     <field name="stud_class"/>
+                     <field name="courses_ids"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_student_info">
+            <field name="name">Student Info</field>
+            <field name="res_model">student.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_student_info_search"/>
+            <field name="help" type="html">
+                <p>
+                    Here you can enter the details of the student.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_student_root" name="Student Info"/>
+        <menuitem id="menu_student_sub" name="Student Details" parent="menu_student_root"/>
+        <menuitem name="Students" id="menu_student_sub1" parent="menu_student_sub" action="action_student_info"/>
+    </data>
+</openerp>
