@@ -1,3 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_employee_mgmt_user,User: Employee User,model_employee_ept,group_employee_user,1,1,1,1
-access_employee_mgmt_manager,User : Employee Manager,model_employee_ept,group_employee_manager,1,1,1,1
+access_employee_mgmt_user,User : Employee User,model_employee_ept,group_employees_user,1,1,1,1
+access_employee_mgmt_manager,User : Employee Manager,model_employee_ept,group_employees_manager,1,1,1,1
+access_employee_leave_user,User : Employee Leave User,model_employee_leave_ept,group_employees_user,1,1,1,1
+access_employee_leave_manager,User : Employee Leave Manager,model_employee_leave_ept,group_employees_manager,1,1,1,1
+access_employee_shift_user,User : Employee Shift User,model_employee_department_shift_ept,group_employees_user,1,1,1,1
+access_employee_shift_manager,User : Employee Shift Manager,model_employee_department_shift_ept,group_employees_manager,1,1,1,1
+access_employee_department_user,User : Employee Department User,model_employee_department_ept,group_employees_user,1,1,1,1
+access_employee_department_manager,User : Employee Department Manager,model_employee_department_ept,group_employees_manager,1,1,1,1

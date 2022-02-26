@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_category,User: Product Category,model_product_category_ept,base.group_sale_salesman,1,1,1,1
+access_product_ept,User: Product,model_product_ept,base.group_sale_salesman,1,1,1,1
+access_product_uom_category_ept,User: Product UoM Category,model_product_uom_category_ept,base.group_sale_salesman,1,1,1,1
+access_product_uom_ept,User: Product UoM,model_product_uom_ept,base.group_sale_salesman,1,1,1,1
+access_customer,User: Customer,model_res_partner_ept,base.group_sale_salesman,1,1,1,1
+access_sale_order,User: Sale Order,model_sale_order_ept,base.group_sale_salesman,1,1,1,1
+access_sale_order_line,User: Sale Order Line,model_sale_order_line_ept,base.group_sale_salesman,1,1,1,1

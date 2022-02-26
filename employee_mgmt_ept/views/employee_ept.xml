@@ -36,7 +36,7 @@
                                   <field name="user_id"/>
                                   <field name="department_id"/>
                                   <field name="shift_id"/>
-                                  <field name="increment_percentage"/>
+                                  <field name="increment_percentage" groups="employee_mgmt_ept.group_employees_manager"/>
                               </group>
                           </group>
                           <notebook>
@@ -59,7 +59,7 @@
                       <field name="position"/>
                       <filter name="filter_Permanent" string="Permanent" domain="[('job_type','=','Permanent')]"/>
                       <filter name="filter_Adhoc" string="Adhoc" domain="[('job_type','=','Adhoc')]"/>
-                      <group expand="0" string="group_by">
+                      <group expand="0" string="Group by">
                           <filter name="filter_gender" string="Gender" domain="[]" context="{'group_by':'gender'}"/>
                           <filter name="filter_jobtype" string="Job Type" domain="[]" context="{'group_by':'job_type'}"/>
                           <filter name="filter_department" string="Department" domain="[]" context="{'group_by':'department_id'}"/>

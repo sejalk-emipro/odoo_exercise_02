@@ -27,7 +27,7 @@
                         </group>
                         <notebook>
                             <page>
-                                <field name="city_ids" readonly="1"/>
+<!--                                <field name="city_ids" readonly="1"/>-->
                             </page>
                         </notebook>
                     </sheet>

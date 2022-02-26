@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <tree string="Department Tree">
                     <field name="name"/>
-                    <field name="depart_manager_id"/>
+                    <field name="department_manager_id"/>
                 </tree>
             </field>
         </record>
@@ -20,7 +20,7 @@
                     <sheet>
                         <group>
                             <field name="name"/>
-                            <field name="depart_manager_id" widget="selection"/>
+                            <field name="department_manager_id"/>
                         </group>
                     </sheet>
                 </form>

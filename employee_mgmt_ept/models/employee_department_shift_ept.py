@@ -6,6 +6,7 @@ class Shift(models.Model):
 
     _name="employee.department.shift.ept"
     _description="Shift"
+    _rec_name='shift'
 
-    name=fields.Selection([('Morning','Morning'),('Afternoon','Afternoon'),('Evening','Evening'),('Night','Night')], string="Shift")
+    shift=fields.Selection([('Morning','Morning'),('Afternoon','Afternoon'),('Evening','Evening'),('Night','Night')], string="Shift")
     employee_ids=fields.One2many(comodel_name="employee.ept",inverse_name="shift_id",string="Employee")

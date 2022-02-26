@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_product_uom_category_tree" model="ir.ui.view">
+            <field name="name">product_uom__category_tree</field>
+            <field name="model">product.uom.category.ept</field>
+            <field name="arch" type="xml">
+                <tree string="Product UoM Category">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_product_uom_category_form" model="ir.ui.view">
+            <field name="name">product_uom_form</field>
+            <field name="model">product.uom.category.ept</field>
+            <field name="arch" type="xml">
+                <form string="Product UoM Category">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_product_uom_category_search" model="ir.ui.view">
+            <field name="name">product_uom_search</field>
+            <field name="model">product.uom.category.ept</field>
+            <field name="arch" type="xml">
+                <search string="Product UoM Category">
+                            <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_product_uom_category" model="ir.actions.act_window">
+            <field name="name">Product UoM Category</field>
+            <field name="res_model">product.uom.category.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_product_uom_category_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the product UoM category</p>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_product_uom_category_sub1" name="Product UoM Category"
+                  parent="menu_product_category_sub" action="action_product_uom_category"/>
+    </data>
+</openerp>

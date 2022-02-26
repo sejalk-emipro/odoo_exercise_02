@@ -12,7 +12,7 @@ class Employee(models.Model):
     salary=fields.Float(string="Salary",help="Salary of the employee",digits=(6,2))
     hire_date=fields.Date(string="Hire Date",help="Enter hire date of the employee")
     gender=fields.Selection([('Male','Male'),('Female','Female'),('Transgender','Transgender')],string="Gender")
-    job_type=fields.Selection([('Permanent','Permanent'),('Adhoc','Adhoc')])
+    job_type=fields.Selection([('Permanent','Permanent'),('Adhoc','Adhoc')],string="Job Type",help="Select job type of the employee.")
     is_manager=fields.Boolean(string="Is Manager")
     manager_id= fields.Many2one(comodel_name="employee.ept",string='Manager')
     user_id=fields.Many2one(comodel_name="res.users",string='Related User')

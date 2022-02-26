@@ -16,6 +16,9 @@
             <field name="model">res.country.ept</field>
             <field name="arch" type="xml">
                 <form string="Country Data">
+                    <header>
+                        <button name="check_crud_operation" string="Check CRUD" type="object"></button>
+                    </header>
                     <sheet>
                         <group>
                             <group>
