@@ -22,18 +22,19 @@ class CountryData(models.Model):
         #     print(s.name,s.code)
         countries=self.search([('code','in',['001','USA'])])
         print(countries[0])
-        # new_record=self.env['res.country.ept'].create({'name':'India'})
+        new_record=self.env['res.country.ept'].with_context({'demo':1,'demo1':1}).create({'name':'IND'})
+        new_record1 = self.env['res.country.ept'].with_context(demo=1,demo1=1).create({'name': 'IND'})
         # print(new_record)
         is_write=self.write({'code':'IND1'})
         print(is_write)
 
-    @api.model
-    def create(self,vals):
-        new_record=super(CountryData,self).create(vals)
-        return new_record
-    
-    @api.model
-    def write(self,vals):
-        is_write=super(CountryData, self).write(vals)
-        return is_write
+    # @api.model
+    # def create(self,vals):
+    #     new_record=super(CountryData,self).create(vals)
+    #     return new_record
+    #
+    # @api.model
+    # def write(self,vals):
+    #     is_write=super(CountryData, self).write(vals)
+    #     return is_write
 

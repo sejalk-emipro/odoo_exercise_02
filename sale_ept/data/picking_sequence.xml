@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data noupdate="1">
+        <record id="seq_type_picking_sale_order" model="ir.sequence.type">
+            <field name="name">Picking Out </field>
+            <field name="code">my.stock.picking.Out</field>
+        </record>
+
+         <record id="seq_type_picking_purchase_order" model="ir.sequence.type">
+            <field name="name">Picking IN </field>
+            <field name="code">my.stock.picking.in</field>
+        </record>
+
+        <record id="seq_picking_sale_order" model="ir.sequence">
+            <field name="name">Picking Sale Order</field>
+            <field name="code">my.stock.picking.Out</field>
+            <field name="prefix">WH/OUT/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_picking_purchase_order" model="ir.sequence">
+            <field name="name">Picking Purchase Order</field>
+            <field name="code">my.stock.picking.in</field>
+            <field name="prefix">WH/IN/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</openerp>

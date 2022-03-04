@@ -1,6 +1,6 @@
 # -*- coding :utf-8 -*-
 {
-    'name':'student_info_ept',
+    'name':'Student Information',
     'category':'Utility',
     'version':'1.1',
     'author':'Emipro Technology Pvt. Ltd.',

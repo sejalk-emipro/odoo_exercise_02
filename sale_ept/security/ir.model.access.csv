@@ -6,3 +6,14 @@ access_product_uom_ept,User: Product UoM,model_product_uom_ept,base.group_sale_s
 access_customer,User: Customer,model_res_partner_ept,base.group_sale_salesman,1,1,1,1
 access_sale_order,User: Sale Order,model_sale_order_ept,base.group_sale_salesman,1,1,1,1
 access_sale_order_line,User: Sale Order Line,model_sale_order_line_ept,base.group_sale_salesman,1,1,1,1
+access_crm_team,User: CRM Team,model_crm_team_ept,base.group_sale_salesman,1,1,1,1
+access_crm_lead,User: CRM Lead,model_crm_lead_ept,base.group_sale_salesman,1,1,1,1
+access_crm_lead_line,User: CRM Lead Line,model_crm_lead_line_ept,base.group_sale_salesman,1,1,1,1
+access_stock_location,User: Stock Location,model_stock_location_ept,base.group_sale_salesman,1,1,1,1
+access_stock_warehouse,User: Stock Warehouse,model_stock_warehouse_ept,base.group_sale_salesman,1,1,1,1
+access_stock_picking,User: Stock Picking,model_stock_picking_ept,base.group_sale_salesman,1,1,1,1
+access_stock_move,User: Stock Move,model_stock_move_ept,base.group_sale_salesman,1,1,1,1
+access_purchase_order,User: Purchase Order,model_purchase_order_ept,base.group_sale_salesman,1,1,1,1
+access_purchase_order_line,User: Purchase Order Line,model_purchase_order_line_ept,base.group_sale_salesman,1,1,1,1
+access_stock_inventory,User: Stock Inventory,model_stock_inventory_ept,base.group_sale_salesman,1,1,1,1
+access_stock_inventory_line,User: Stock Inventory Line,model_stock_inventory_line_ept,base.group_sale_salesman,1,1,1,1

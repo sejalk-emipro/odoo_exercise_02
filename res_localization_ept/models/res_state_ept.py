@@ -5,7 +5,7 @@ from openerp import models,fields,api
 class StateData(models.Model):
 
     _name="res.state.ept"
-    _description="State Demo"
+    _description="State Data"
 
     name=fields.Char(string="State Name",help="Name of the state")
     code=fields.Char(string="State Code",help="Code of the state")
@@ -19,13 +19,13 @@ class StateData(models.Model):
     #     new_record=super(StateData, self).copy(cr, uid, ids,default=default,context=context)
     #     return new_record
 
-    @api.multi
-    def copy(self, default={}):
-        default.update({
-            'name': self.name+" - Copy"
-        })
-        new_record =super(StateData, self).copy(default)
-        return new_record
+    # @api.multi
+    # def copy(self, default={}):
+    #     default.update({
+    #         'name': self.name+" - Copy"
+    #     })
+    #     new_record =super(StateData, self).copy(default)
+    #     return new_record
 
     @api.constrains('code')
     def check_unique_code(self):

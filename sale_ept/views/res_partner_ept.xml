@@ -10,9 +10,9 @@
                         <field name="email"/>
                         <field name="phone"/>
                         <field name="website"/>
-                        <field name="city"/>
-                        <field name="state"/>
-                        <field name="country"/>
+                        <field name="city_id"/>
+                        <field name="state_id"/>
+                        <field name="country_id"/>
                     </tree>
                 </field>
             </record>
@@ -35,9 +35,9 @@
                                 <group>
                                     <field name="street1"/>
                                     <field name="street2"/>
-                                    <field name="city"/>
-                                    <field name="state"/>
-                                    <field name="country"/>
+                                    <field name="city_id"/>
+                                    <field name="state_id"/>
+                                    <field name="country_id"/>
                                     <field name="zipcode"/>
                                     <field name="address_type" attrs="{'invisible': [('parent_id','=', False)]}"/>
                                 </group>
@@ -93,14 +93,14 @@
                 <search name="Partner search">
                     <field name="name"/>
                     <field name="website"/>
-                    <field name="country"/>
-                    <field name="state"/>
+                    <field name="country_id"/>
+                    <field name="state_id"/>
                     <filter name="filter_active" string="Active" domain="[('active','=',1)]"/>
                     <filter name="filter_inactive" domain="[('active','=',0)]" string="Inactive"/>
                     <group expand="0" string="Group By">
-                        <filter name="filter_city" string="City" domain="[]" context="{'group_by':'city'}"/>
-                        <filter name="filter_state" string="State" domain="[]" context="{'group_by':'state'}"/>
-                        <filter name="filter_country" string="Country" domain="[]" context="{'group_by':'country'}"/>
+                        <filter name="filter_city" string="City" domain="[]" context="{'group_by':'city_id'}"/>
+                        <filter name="filter_state" string="State" domain="[]" context="{'group_by':'state_id'}"/>
+                        <filter name="filter_country" string="Country" domain="[]" context="{'group_by':'country_id'}"/>
                     </group>
                 </search>
             </field>

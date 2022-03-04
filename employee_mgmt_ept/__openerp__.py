@@ -1,6 +1,6 @@
 # -*- coding :utf-8 -*-
 {
-    'name':'employee_mgmt_ept',
+    'name':'Employee Management',
     'category':'Utility',
     'version':'1.1',
     'author':'Emipro Technology Pvt. Ltd.',

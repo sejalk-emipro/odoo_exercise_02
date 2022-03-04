@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_stock_location_tree" model="ir.ui.view">
+            <field name="name">Stock Location</field>
+            <field name="model">stock.location.ept</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Location">
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                    <field name="location_type"/>
+                    <field name="is_scrap_location"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_stock_location_form" model="ir.ui.view">
+            <field name="name">Stock Location</field>
+            <field name="model">stock.location.ept</field>
+            <field name="arch" type="xml">
+                <form string="Stock Location">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="parent_id"/>
+                            </group>
+                            <group>
+                                <field name="location_type"/>
+                                <field name="is_scrap_location"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_stock_location_search" model="ir.ui.view">
+            <field name="name">Stock Location</field>
+            <field name="model">stock.location.ept</field>
+            <field name="arch" type="xml">
+                <search string="Stock Location">
+                    <field name="name"/>
+                    <filter name="filter_location_type" string="Location Type" domain="[('location_type','=','Internal')]" />
+
+<!--                    <group expand="0" string="Group By">-->
+<!--                        <filter name="filter_location_type" string="Location Type" context="{'group_by':'location_type'}" />-->
+<!--                    </group>-->
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_stock_location">
+            <field name="name">Stock Location</field>
+            <field name="res_model">stock.location.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_stock_location_search"/>
+            <field name="domain">[('location_type','=','Internal')]</field>
+            <field name="context">{'search_default_filter_location_type':1}</field>
+            <field name="help" type="html">
+                <p>
+                    Here you can enter the details of the warehouse location
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="inventory_root" name="Inventory" parent="menu_product_category_root"/>
+        <menuitem id="inventory_configuration" name="Configuration" parent="inventory_root"/>
+        <menuitem id="stock_location" name="Location" parent="inventory_configuration" action="action_stock_location"/>
+    </data>
+</openerp>

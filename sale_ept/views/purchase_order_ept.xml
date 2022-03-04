@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_purchase_order_tree" model="ir.ui.view">
+            <field name="name">Purchase Order</field>
+            <field name="model">purchase.order.ept</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Tree">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="warehouse_id"/>
+                    <field name="order_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_form" model="ir.ui.view">
+            <field name="name">Purchase Order</field>
+            <field name="model">purchase.order.ept</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Form">
+                    <header>
+                        <button name="change_order_state_and_create_picking" string="Confirm" type="object" attrs="{'invisible': [('state', '=', 'Confirmed')]}"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="warehouse_id"/>
+                                <field name="order_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Order Lines">
+                                <field name="purchase_order_line_ids">
+                                    <tree>
+                                        <field name="product_id"/>
+                                        <field name="name"/>
+                                        <field name="quantity"/>
+                                        <field name="cost_price"/>
+                                        <field name="uom_id"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="product_id"/>
+                                                    <field name="name"/>
+                                                    <field name="quantity"/>
+                                                </group>
+                                                <group>
+                                                    <field name="cost_price"/>
+                                                    <field name="uom_id"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_search" model="ir.ui.view">
+            <field name="name">Purchase Order</field>
+            <field name="model">purchase.order.ept</field>
+            <field name="arch" type="xml">
+                <search string="Purchase Order Search">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="filter_state" string="State" context="{'group_by':'state'}"/>
+                        <filter name="filter_warehouse" string="Warehouse" context="{'group_by':'warehouse_id'}"/>
+                    </group>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+         <record id="action_purchase_order" model="ir.actions.act_window">
+            <field name="name">Purchase Order</field>
+            <field name="res_model">purchase.order.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_purchase_order_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the purchase order</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_purchase_order_sub" parent="menu_product_sub" name="Purchase Orders" action="action_purchase_order"/>
+
+    </data>
+</openerp>

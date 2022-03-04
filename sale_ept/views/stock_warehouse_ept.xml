@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+         <record id="view_stock_warehouse_tree" model="ir.ui.view">
+             <field name="name">Stock Warehouse</field>
+             <field name="model">stock.warehouse.ept</field>
+             <field name="arch" type="xml">
+                 <tree string="Warehouse Tree">
+                     <field name="name"/>
+                     <field name="short_code"/>
+                     <field name="address_id"/>
+                     <field name="stock_location_id"/>
+                     <field name="view_location_id"/>
+                 </tree>
+             </field>
+         </record>
+
+         <record id="view_stock_warehouse_form" model="ir.ui.view">
+             <field name="name">Stock Warehouse</field>
+             <field name="model">stock.warehouse.ept</field>
+             <field name="arch" type="xml">
+                 <form string="Warehouse">
+                     <sheet>
+                         <group>
+                             <group>
+                                  <field name="name"/>
+                                  <field name="short_code"/>
+                             </group>
+                             <group>
+                                  <field name="address_id"/>
+                             </group>
+                         </group>
+                     </sheet>
+                 </form>
+             </field>
+         </record>
+
+        <record id="view_stock_warehouse_search" model="ir.ui.view">
+             <field name="name">Stock Warehouse</field>
+             <field name="model">stock.warehouse.ept</field>
+             <field name="arch" type="xml">
+                 <search string="Warehouse Search">
+                     <field name="name"/>
+                     <field name="short_code"/>
+                     <field name="address_id"/>
+                     <group expand="0" string="Group By">
+                         <filter name="filter_stock_location" string="Stock Location" context="{'group_by':'stock_location_id'}"/>
+                         <filter name="filter_view_location" string="Stock Location" context="{'group_by':'view_location_id'}"/>
+                     </group>
+                 </search>
+             </field>
+         </record>
+
+        <record model="ir.actions.act_window" id="action_stock_warehouse">
+            <field name="name">Stock Warehouse</field>
+            <field name="res_model">stock.warehouse.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_stock_warehouse_search"/>
+            <field name="help" type="html">
+                <p>
+                    Here you can enter the details of the warehouse
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="stock_warehouse" name="Warehouse" parent="inventory_configuration" action="action_stock_warehouse"/>
+
+    </data>
+</openerp>

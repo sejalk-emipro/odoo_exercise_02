@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_crm_lead_tree" model="ir.ui.view">
+            <field name="name">CRM Lead</field>
+            <field name="model">crm.lead.ept</field>
+            <field name="arch" type="xml">
+                <tree string="CRM Lead">
+                    <field name="partner_id"/>
+                    <field name="team_id"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_crm_lead_form" model="ir.ui.view">
+            <field name="name">CRM Lead</field>
+            <field name="model">crm.lead.ept</field>
+            <field name="arch" type="xml">
+                <form string="CRM Lead">
+                    <header>
+                        <button name="change_qualified_state" string="Qualified" type="object" attrs="{'invisible': [('state', 'not in', ('New'))]}"/>
+                        <button name="change_proposition_state" string="Proposition" type="object" attrs="{'invisible': [('state', 'not in', ('Qualified'))]}"/>
+                        <button name="change_won_state" string="Won" type="object" attrs="{'invisible': [('state', 'not in', ('Proposition'))]}"/>
+                        <button name="change_lost_state" string="Lost" type="object" attrs="{'invisible': [('state', 'not in', ('Proposition'))]}"/>
+                        <button name="generate_sales_quotation" string="Generate Sales Quotation" type="object" attrs="{'invisible': [('state', 'not in',('Lost','Won'))]}"/>
+                        <button name="create_partner" string="Generate Customer" type="object" attrs="{'invisible': [('state', 'not in',('New')),('partner_id','!=',False)]}"/>
+
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="team_id"/>
+                                <field name="user_id"/>
+                            </group>
+                            <group>
+                                <field name="next_followup_date"/>
+                                <field name="won_date"  attrs="{'invisible': [('state', 'not in', ('Won'))]}"/>
+                                <field name="lost_reason" attrs="{'invisible': [('state', 'not in', ('Lost'))]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lead Lines">
+                                <field name="lead_line_ids">
+                                    <tree>
+                                        <field name="product_id"/>
+                                        <field name="name"/>
+                                        <field name="expected_sell_qty"/>
+                                        <field name="uom_id"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                     <field name="product_id"/>
+                                                     <field name="name"/>
+                                                </group>
+                                                <group>
+                                                    <field name="expected_sell_qty"/>
+                                                    <field name="uom_id"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Orders">
+                                <field name="order_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                        <field name="partner_invoice_id"/>
+                                        <field name="partner_shipping_id"/>
+                                        <field name="order_total" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="customer details">
+                                <group>
+                                    <group>
+                                        <field name="partner_name"/>
+                                        <field name="partner_email"/>
+                                        <field name="partner_phone_no"/>
+                                    </group>
+                                    <group>
+                                        <field name="partner_country_id"/>
+                                        <field name="partner_state_id"/>
+                                        <field name="partner_city_id"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_crm_lead_search" model="ir.ui.view">
+            <field name="name">CRM Lead</field>
+            <field name="model">crm.lead.ept</field>
+            <field name="arch" type="xml">
+                <search string="CRM Lead">
+                    <field name="partner_id"/>
+                    <filter name="filter_won" string="Won" domain="[('state','=','Won')]"/>
+                    <filter name="filter_lost" domain="[('state','=','Lost')]" string="Lost"/>
+                </search>
+            </field>
+        </record>
+
+         <record id="action_crm_lead_ept" model="ir.actions.act_window">
+            <field name="name">CRM Lead</field>
+            <field name="res_model">crm.lead.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_crm_lead_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the CRM Lead </p>
+            </field>
+        </record>
+        <menuitem id="menu_crm_lead_sub1" name="Sales Lead" parent="menu_crm_sub" action="action_crm_lead_ept"/>
+    </data>
+</openerp>

@@ -23,6 +23,9 @@
                     <form string="Product">
                         <sheet>
                             <group>
+                                <field name="product_stock"/>
+                            </group>
+                            <group>
                                 <group>
                                     <field name="name"/>
                                     <field name="sku"/>

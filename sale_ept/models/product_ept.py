@@ -20,3 +20,35 @@ class ProductData(models.Model):
     description = fields.Text(string="Description",help="Description of the product")
     category_id = fields.Many2one(string="Category", comodel_name="product.category.ept")
     uom_id = fields.Many2one(string="UoM",comodel_name="product.uom.ept")
+    product_stock=fields.Float(string="Product stock", digits=(16, 2), compute="compute_total_product_stock", store=False,help="Total of the product stock")
+
+
+    def compute_total_product_stock(self):
+        warehouses=self.env['stock.warehouse.ept'].search([])
+        stock_locations=[]
+        if not self.env.context.get('location'):
+            stock_locations = warehouses.mapped(lambda warehouse: warehouse.stock_location_id.id)
+        else:
+            stock_locations=[self.env.context.get('location')]
+
+        if stock_locations:
+            product_stock=0
+            for product in self:
+                destination_total=0
+                source_total=0
+                dest_stock_moves=self.env['stock.move.ept'].search([('destination_location_id','in',stock_locations),
+                                                                  ('product_id','=',product.id),('state','=','Done')])
+                for move in dest_stock_moves:
+                    destination_total+=move.qty_to_deliver
+
+                source_stock_moves = self.env['stock.move.ept'].search([('source_location_id', 'in', stock_locations),
+                                                                 ('product_id', '=', product.id), ('state', '=', 'Done')])
+
+                for move in source_stock_moves:
+                    source_total+=move.qty_to_deliver
+
+                if destination_total>source_total :
+                    product_stock=(destination_total-source_total)
+
+                product.product_stock=product_stock
+
