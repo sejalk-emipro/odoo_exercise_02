@@ -21,6 +21,10 @@
             <field name="model">product.ept</field>
             <field name="arch" type="xml">
                     <form string="Product">
+                        <header>
+                            <button type="object" name="action_update_stock" string="Update Product Stock"/>
+                            <button type="action" name="%(sale_ept.update_stock_wizard_action)d" string="Update Product Stock"/>
+                        </header>
                         <sheet>
                             <group>
                                 <field name="product_stock"/>
@@ -46,6 +50,9 @@
                             <notebook>
                                 <page string="Description">
                                     <field name="description"/>
+                                </page>
+                                <page string="Accounting">
+                                    <field name="tax_ids" domain="[('tax_use','=','Sales')]" widget="many2many_tags"/>
                                 </page>
                             </notebook>
                         </sheet>

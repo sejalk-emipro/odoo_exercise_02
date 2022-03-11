@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_account_tax_tree" model="ir.ui.view">
+            <field name="name">Account Tax</field>
+            <field name="model">account.tax.ept</field>
+            <field name="arch" type="xml">
+                <tree string="Account Tax Tree">
+                    <field name="name"/>
+                    <field name="tax_use"/>
+                    <field name="tax_value"/>
+                    <field name="tax_amount_type"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_account_tax_form" model="ir.ui.view">
+            <field name="name">Account Tax</field>
+            <field name="model">account.tax.ept</field>
+            <field name="arch" type="xml">
+                <form string="Account Tax Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="tax_use"/>
+                            </group>
+                            <group>
+                                <field name="tax_value"/>
+                                <field name="tax_amount_type"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_tax_search" model="ir.ui.view">
+            <field name="name">Account Tax</field>
+            <field name="model">account.tax.ept</field>
+            <field name="arch" type="xml">
+                <search string="Account Tax Search">
+                    <field name="name"/>
+                    <group expand="0" string="Group By">
+                        <filter name="filter_tax_use" context="{'group_by':'tax_use'}" string="Tax Use"/>
+                        <filter name="filter_tax_amount_type" context="{'group_by':'tax_amount_type'}" string="Tax Amount Type"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_account_tax" model="ir.actions.act_window">
+            <field name="name">Account Tax</field>
+            <field name="res_model">account.tax.ept</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_account_tax_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the account tax</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_account_tax" parent="menu_product_category_sub" name="Account Tax" action="action_account_tax"/>
+
+    </data>
+</openerp>

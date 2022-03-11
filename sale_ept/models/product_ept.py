@@ -1,6 +1,6 @@
 # -*- coding :utf-8 -*-
 
-from openerp import models,fields
+from openerp import models,fields,api
 
 class ProductData(models.Model):
 
@@ -21,24 +21,50 @@ class ProductData(models.Model):
     category_id = fields.Many2one(string="Category", comodel_name="product.category.ept")
     uom_id = fields.Many2one(string="UoM",comodel_name="product.uom.ept")
     product_stock=fields.Float(string="Product stock", digits=(16, 2), compute="compute_total_product_stock", store=False,help="Total of the product stock")
+    tax_ids=fields.Many2many(comodel_name="account.tax.ept",string="Customer Taxes")
+
+
+    @api.multi
+    def action_update_stock(self):
+        action=self.env['ir.actions.act_window'].for_xml_id('sale_ept','update_stock_wizard_action')
+
+        # view=self.env.ref('sale_ept.update_stock_wizard_action')
+        # action={
+        #     'type':'ir.actions.act_window',
+        #     'res_model':'product.stock.update.ept',
+        #     'view_type': 'form',
+        #     'view_mode': 'form',
+        #     'views':[(False,'form')],
+        #     'view_id': False,
+        #     'target': 'new',
+        #     'context': {}
+        # }
+        return action
 
 
     def compute_total_product_stock(self):
+        """
+        :functionality :Calculate product stock based on moves and locations
+        :return: -
+        """
         warehouses=self.env['stock.warehouse.ept'].search([])
-        stock_locations=[]
+
+        # throw Expected singleton: stock.warehouse.ept(3, 4)
+        # stock_locations = warehouses.stock_location_id.ids,
+        # self.env['stock.warehouse.ept'].search([]).stock_location_id.id
+
+        stock_locations = [self.env.context.get('location')]
         if not self.env.context.get('location'):
             stock_locations = warehouses.mapped(lambda warehouse: warehouse.stock_location_id.id)
-        else:
-            stock_locations=[self.env.context.get('location')]
 
         if stock_locations:
             product_stock=0
             for product in self:
                 destination_total=0
                 source_total=0
-                dest_stock_moves=self.env['stock.move.ept'].search([('destination_location_id','in',stock_locations),
+                destination_moves=self.env['stock.move.ept'].search([('destination_location_id','in',stock_locations),
                                                                   ('product_id','=',product.id),('state','=','Done')])
-                for move in dest_stock_moves:
+                for move in destination_moves:
                     destination_total+=move.qty_to_deliver
 
                 source_stock_moves = self.env['stock.move.ept'].search([('source_location_id', 'in', stock_locations),

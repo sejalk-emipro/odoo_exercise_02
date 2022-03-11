@@ -6,7 +6,7 @@ class SaleOrderEPT(models.Model):
     _name="sale.order.ept"
     _description="Sale Order"
 
-    name=fields.Char(string="Order No",help="Number of the order",required=True)
+    name=fields.Char(string="Order No",help="Number of the order")
     partner_id=fields.Many2one(comodel_name="res.partner.ept",string="Customer",required=True,
                                 domain="[('parent_id','=',False)]")
     partner_invoice_id=fields.Many2one(comodel_name="res.partner.ept",string="Invoice Customer",required=True,
@@ -23,38 +23,111 @@ class SaleOrderEPT(models.Model):
     order_total=fields.Float(string="Order Total", digits=(16, 2), compute="compute_order_total", store=True,help="Total of the order")
     crm_lead_id=fields.Many2one(string="CRM Lead",comodel_name="crm.lead.ept")
     warehouse_id=fields.Many2one(string="Warehouse",comodel_name="stock.warehouse.ept")
+    picking_ids=fields.One2many(comodel_name="stock.picking.ept",inverse_name="sale_order_id",
+                                string="Pickings",readonly=True)
+    picking_count=fields.Integer(string="Picking Count",compute="compute_count_picking", store=False)
+    move_count = fields.Integer(string="Move Count", compute="compute_count_move", store=False)
+    total_tax=fields.Float(string="Total Tax",compute="compute_total_tax",digits=(16,2),store=True)
+    total_amount=fields.Float(string="Total Amount",compute="compute_total_amount",digits=(16,2),store=True)
+
+    @api.depends('order_line_ids.subtotal_with_tax')
+    def compute_total_amount(self):
+        if self.order_line_ids:
+            self.total_amount=sum(self.order_line_ids.mapped('subtotal_with_tax'))
+
+    @api.depends('order_line_ids.subtotal_with_tax')
+    def compute_total_tax(self):
+        if self.order_line_ids:
+            total_with_tax=sum(self.order_line_ids.mapped('subtotal_with_tax'))
+            tota_without_tax=sum(self.order_line_ids.mapped('subtotal_without_tax'))
+            self.total_tax=(total_with_tax-tota_without_tax)
+
+    def compute_count_move(self):
+        self.move_count = len(self.picking_ids.mapped('move_ids'))
+
+    def compute_count_picking(self):
+        self.picking_count=len(self.picking_ids)
+
+
+    @api.multi
+    def view_moves(self):
+        # action = self.env['ir.actions.act_window'].for_xml_id('sale_ept', 'action_stock_moving')
+
+        view=self.env.ref('sale_ept.view_stock_move_tree')
+        action ={
+            'name':'Stock Moves',
+            'type':'ir.actions.act_window',
+            'res_model':'stock.move.ept',
+            'view_type': 'tree',
+            'view_mode': 'tree',
+            'views':[(False, 'tree')],
+            'view_id': False,
+            'target': 'current',
+        }
+        move_ids = self.picking_ids.mapped('move_ids').ids
+        action['domain'] = "[('id','in',{0})]".format(move_ids)
+        return action
+
+    @api.multi
+    def view_picking(self):
+        '''
+        This function returns an action that display existing picking orders of given sales order ids.
+        '''
+
+        action = self.env['ir.actions.act_window'].for_xml_id('sale_ept', 'action_delivery_orders')
+
+        pick_ids =self.picking_ids.ids
+
+        #choose the view_mode accordingly
+        if len(pick_ids) > 1:
+            action['domain'] = "[('id','in',{0})]".format(pick_ids)
+        else:
+            res =self.env['ir.ui.view'].for_xml_id('sale_ept', 'view_stock_picking_form')
+            action['views'] = [(res and res[1] or False, 'form')]
+            action['res_id'] = pick_ids and pick_ids[0] or False
+        return action
 
 
     @api.multi
     def change_state_and_create_picking(self):
         """
-        :Functionality :Change the order state and create the Stock Picking on order
-        :return:
+        :functionality :Change the order state and create the Stock Picking on order
+        :return: -
         """
-        tmp_stock_moves=[]
+
         destination_location=self.env['stock.location.ept'].search([('location_type','=','Customer')],limit=1)
         if not destination_location:
             raise Warning("Customer cannot be found!.First add the customer in location")
 
-        for line in self.order_line_ids:
-            name='{0}: {1} -> {2}'.format(line.product_id.name,self.warehouse_id.stock_location_id.name,destination_location.name)
-            tmp_stock_moves.append((0,0,{'sale_line_id':line.id,
-                'name':name,'product_id':line.product_id.id,
-                'uom_id':line.uom_id.id,
-                'source_location_id':self.warehouse_id.stock_location_id.id,
-                'destination_location_id':destination_location.id,
-                'qty_to_deliver':line.quantity,'qty_done':0.0}))
-            line.write({'state':'Confirmed'})
+        warehouses=self.order_line_ids.mapped('warehouse_id')
 
-        tmp_stock_picking=self.env['stock.picking.ept'].create({
+        if not warehouses:
+            warehouses=[self.warehouse_id]
+
+        for warehouse in warehouses:
+            tmp_stock_moves = []
+            order_line=self.order_line_ids.filtered(lambda line: line.warehouse_id.id == warehouse.id)
+
+            if warehouse.id == self.warehouse_id.id:
+                order_line=self.order_line_ids.filtered(lambda line: line.warehouse_id.id == warehouse.id or line.warehouse_id.id==False)
+
+            for line in order_line:
+                name='{0}: {1} -> {2}'.format(line.product_id.name,self.warehouse_id.stock_location_id.name,destination_location.name)
+                tmp_stock_moves.append((0,0,{'sale_line_id':line.id,
+                    'name':name,'product_id':line.product_id.id,
+                    'uom_id':line.uom_id.id,
+                    'source_location_id':warehouse.stock_location_id.id,
+                    'destination_location_id':destination_location.id,
+                    'qty_to_deliver':line.quantity,'qty_done':0.0}))
+                line.write({'state':'Confirmed'})
+
+            tmp_stock_picking=self.env['stock.picking.ept'].create({
             'partner_id':self.partner_shipping_id.id,
             'sale_order_id':self.id,
             'transaction_type':'Out',
             'move_ids':tmp_stock_moves})
 
         self.write({'state':'Confirmed'})
-
-
 
     @api.model
     def create(self, vals):

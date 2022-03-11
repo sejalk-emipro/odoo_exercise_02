@@ -22,11 +22,29 @@
             <field name="model">sale.order.ept</field>
             <field name="arch" type="xml">
                 <form string="Sale Order form">
-                     <header>
+
+                    <header>
                          <button name="change_state_and_create_picking" string="Confirm" type="object" attrs="{'invisible': [('state', '=', 'Confirmed')]}"/>
                          <field name="state" widget="statusbar" nolabel="1"/>
                      </header>
+
                     <sheet>
+                        <xpath expr="//div[contains(@class, 'oe_title')]" position="before">
+                            <div class="oe_right oe_button_box" name="buttons">
+                                     <button type="object"  name="view_picking"
+                                        class="oe_stat_button"
+                                        icon="fa-truck"
+                                        attrs="{'invisible': [('picking_count', '=', 0)]}">
+                                        <field name="picking_count" widget="statinfo" string="Delivery" help="Delivery"/>
+                                    </button>
+                                    <button type="object"  name="view_moves"
+                                        class="oe_stat_button"
+                                        icon="fa-pencil-square-o"
+                                        attrs="{'invisible': [('move_count', '=', 0)]}">
+                                        <field name="move_count" widget="statinfo" string="Stock Moves"/>
+                                    </button>
+                            </div>
+                        </xpath>
                         <group>
                             <group>
                                 <field name="name"/>
@@ -51,36 +69,40 @@
                                     <field name="name"/>
                                     <field name="quantity"/>
                                     <field name="unit_price"/>
-
-<!--                                    <field name="state"/>-->
-                                     <field name="subtotal_without_tax"/>
+                                    <field name="warehouse_id"/>
+                                    <field name="tax_ids"/>
+                                    <field name="delivered_qty"/>
+                                    <field name="cancelled_qty"/>
                                 </tree>
                                 <form>
                                     <group>
                                         <group>
                                             <field name="product_id"/>
                                             <field name="quantity"/>
-                                            <field name="unit_price"/>
-                                            <field name="subtotal"/>
                                             <field name="name"/>
                                             <field name="uom_id"/>
-<!--                                            <field name="state"/>-->
+                                        </group>
+                                        <group>
+                                            <field name="warehouse_id"/>
+                                            <field name="unit_price"/>
+                                            <field name="tax_ids" widget="many2many_tags" domain="[('tax_use','=','Sales')]"/>
+                                            <field name="subtotal_without_tax"/>
+                                            <field name="subtotal_with_tax"/>
                                         </group>
                                     </group>
                                 </form>
                             </field>
-                            <group>
-                                <group>
-                                    <field name="order_total" invisible="1"/>
-                                </group>
-                                 <group name="sale_total">
-                                     <field name="order_total"/>
-                                </group>
+                            <group class="oe_subtotal_footer oe_right">
+                                    <field name="order_total"/>
+                                    <field name="total_tax"/>
+                                    <field name="total_amount" class="oe_subtotal_footer_separator"/>
                             </group>
+                        </page>
+                        <page string="Picking">
+                            <field name="picking_ids"/>
                         </page>
                     </notebook>
                     </sheet>
-
                 </form>
             </field>
         </record>

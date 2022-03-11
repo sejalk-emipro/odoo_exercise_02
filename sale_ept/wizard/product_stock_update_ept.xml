@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_product_stock_update_form" model="ir.ui.view">
+            <field name="name">Product Stock Update</field>
+            <field name="model">product.stock.update.ept</field>
+            <field name="arch" type="xml">
+                <form string="Stock Update">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="location_id" domain="[('location_type','=','Internal')]"/>
+                                <field name="available_stock"/>
+                            </group>
+                            <group>
+                                <field name="counted_qty"/>
+                                <field name="difference_qty"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="update_stock" string="Update Stock" type="object"/>
+                        <button string="Cancel" special="cancel" class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+<!--        <record id="action_update_product_stock" model="ir.actions.act_window">-->
+<!--            <field name="name">Update Product Stock</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">product.stock.update.ept</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">new</field>-->
+<!--            <field name="binding_model_id" ref="model_product_ept"/>-->
+<!--            <field name="binding_view_types">form</field>-->
+<!--            <field name="binding_type">action</field>-->
+<!--            <field name="view_id" ref="view_product_stock_update_form"/>-->
+<!--        </record>-->
+
+        <act_window id="update_stock_wizard_action"
+            name="Update Stock"
+            src_model="product.ept"
+            res_model="product.stock.update.ept"
+            view_type="form" view_mode="form"
+                    target="new" view_id="view_product_stock_update_form"/>
+    </data>
+</openerp>

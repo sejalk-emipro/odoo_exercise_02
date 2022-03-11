@@ -12,6 +12,7 @@ class PurchaseOrderEpt(models.Model):
     order_date=fields.Date(string="Order Date",help="Date of the purchase order",default=fields.Date.today())
     state=fields.Selection([('Draft','Draft'),('Confirmed','Confirmed'),('Done','Done'),('Cancelled','Cancelled')],string="State",help="State of the order",default="Draft")
     purchase_order_line_ids=fields.One2many(comodel_name="purchase.order.line.ept",inverse_name="purchase_order_id",string="Purchase Order line")
+    picking_ids = fields.One2many(comodel_name="stock.picking.ept", inverse_name="purchase_order_id", string="Pickings",readonly=True)
 
     @api.model
     def create(self,vals):

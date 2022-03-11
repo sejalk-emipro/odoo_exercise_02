@@ -44,6 +44,8 @@
                                         <field name="quantity"/>
                                         <field name="cost_price"/>
                                         <field name="uom_id"/>
+                                        <field name="delivered_qty"/>
+                                        <field name="cancelled_qty"/>
                                     </tree>
                                     <form>
                                         <sheet>
@@ -61,6 +63,9 @@
                                         </sheet>
                                     </form>
                                 </field>
+                            </page>
+                            <page string="Picking">
+                                  <field name="picking_ids"/>
                             </page>
                         </notebook>
                     </sheet>

@@ -14,6 +14,25 @@ class PurchaseOrderLineEpt(models.Model):
     state = fields.Selection([('Draft', 'Draft'), ('Confirmed', 'Confirmed'), ('Cancelled', 'Cancelled')],
                              string="State", help="State of the order line", default="Draft")
     uom_id = fields.Many2one(comodel_name="product.uom.ept", string="UoM")
+    stock_move_ids=fields.One2many(comodel_name="stock.move.ept",inverse_name="purchase_line_id",
+                                   string="Stock Moves",readonly=True)
+
+    delivered_qty = fields.Float(string="Delivered Quantity", store=False, compute="compute_delivered_qty",
+                                 help="Total of delivered quantity")
+    cancelled_qty = fields.Float(string="Cancelled Quantity", store=False, compute="compute_cancelled_qty",
+                                 help="Total of cancelled quantity")
+
+    def compute_delivered_qty(self):
+        for line in self:
+            total_delivered_qty = 0
+            total_delivered_qty=sum(line.stock_move_ids.filtered(lambda move: move.state == 'Done' and move.qty_done != 0).mapped('qty_done'))
+            line.delivered_qty = total_delivered_qty
+
+    def compute_cancelled_qty(self):
+        for line in self:
+            total_cancelled_qty = 0
+            total_delivered_qty = sum(line.stock_move_ids.filtered(lambda move: move.state == 'Cancelled').mapped('qty_done'))
+            line.cancelled_qty = total_cancelled_qty
 
     @api.onchange('product_id')
     def onchange_product_id(self):

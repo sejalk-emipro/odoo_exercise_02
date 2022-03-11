@@ -18,6 +18,10 @@ class StockInventoryEpt(models.Model):
 
     @api.multi
     def action_start_inventory(self):
+        """
+        :functionality : Calculate the available quantity based on location and change inventory state is In-progress
+        :return:
+        """
         if self.location_id:
             for line in self.inventory_line_ids:
                 line.available_qty=line.product_id.with_context({'location':self.location_id.id}).product_stock
@@ -26,6 +30,12 @@ class StockInventoryEpt(models.Model):
 
     @api.multi
     def action_validate_inventory(self):
+        """
+        :functionality : Create the stock moves on inventory lines and change inventory state is Done
+                        inventory_Loss: Store the location and use this location in moves creation
+        :raises: Warning
+        :return: -
+        """
         inventory_Loss = self.env['stock.location.ept'].search([('location_type', '=', 'Inventory Loss')], limit=1)
 
         if not inventory_Loss:
