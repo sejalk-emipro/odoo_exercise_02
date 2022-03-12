@@ -11,7 +11,7 @@
     """,
     'depends':['sale_crm'],
     'data':['views/sale_order.xml'],
-    'demo':[],
+    'demo':['data/crm_lead_category.xml'],
     'auto_install':False,
     'application':False,
     'installable':True,

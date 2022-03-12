@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data noupdate="1">
+        <record model="crm.case.categ" id="categ_fromlead">
+            <field name="name">From Lead</field>
+            <field name="section_id" ref="sales_team.section_sales_department"/>
+        </record>
+    </data>
+</openerp>
