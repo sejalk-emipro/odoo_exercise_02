@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+          <record id="view_employee_comment_form" model="ir.ui.view">
+            <field name="name">My Comment</field>
+            <field name="model">employee.comment</field>
+            <field name="arch" type="xml">
+                <form string="My Comment Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" readonly="1"/>
+                                <field name="comment" required="1"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="reply" string="Reply" type="object"/>
+                            <button string="Cancel" special="cancel" class="oe_link" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--  src_model="employee.remarks"          domain="[('employee_remarks_id.state','=','Notify to Employee'),('employee_remarks_id.employee_id.user_id.id', '=', uid)]"-->
+
+        <act_window id="action_employee_comment"
+            name="My Comment"
+            res_model="employee.comment"
+            view_type="form" view_mode="form"
+            target="new" view_id="employee_remarks.view_employee_comment_form"
+        groups = "employee_remarks.group_employee_remarks_users"/>
+
+    </data>
+</openerp>

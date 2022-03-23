@@ -39,7 +39,7 @@ class ProductStockUpdate(models.TransientModel):
 
     @api.depends('counted_qty')
     def compute_difference(self):
-            self.difference_qty = (self.counted_qty - self.available_stock)
+        self.difference_qty = (self.counted_qty - self.available_stock)
 
     @api.onchange('location_id')
     def onchange_location_id(self):

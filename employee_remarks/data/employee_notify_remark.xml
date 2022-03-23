@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data noupdate="0">
+		 <record id="email_template_send_notification_to_employee" model="email.template">
+            <field name="name">Employee Remarks | Notify to Employee when added any HR Remark </field>
+            <field name="email_from">${object.employee_id.work_email}</field>
+            <field name="subject">Employee Remarks | [${object.sequence}]</field>
+            <field name="partner_to">${object.employee_id.user_id.partner_id.id}</field>
+            <field name="model_id" ref="employee_remarks.model_employee_remarks"/>
+			<field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+                <p>Hello, ${object.employee_id.user_id.partner_id.name}, </p>
+                <p> Emipro seeks a Responsible & Answerable Eminent within you.Hence, System has noted following <b> ${object.review}</b> remark about you.
+                </p>
+                <p>Thank You!</p>
+            ]]>
+            </field>
+         </record>
+
+    </data>
+</openerp>

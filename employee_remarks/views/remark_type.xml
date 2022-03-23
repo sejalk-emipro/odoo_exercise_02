@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_remark_type_tree" model="ir.ui.view">
+            <field name="name">Remark Type</field>
+            <field name="model">remark.type</field>
+            <field name="arch" type="xml">
+                <tree string="Remark Type Tree">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="view_remark_type_from" model="ir.ui.view">
+            <field name="name">Remark Type</field>
+            <field name="model">remark.type</field>
+            <field name="arch" type="xml">
+                <form string="Remark Type Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="view_remark_type_search" model="ir.ui.view">
+            <field name="name">Remark Type</field>
+            <field name="model">remark.type</field>
+            <field name="arch" type="xml">
+                <search string="Remark Type Search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_remark_type" model="ir.actions.act_window">
+            <field name="name">Remark Type</field>
+            <field name="res_model">remark.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_remark_type_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the employee remark type</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_employee_remark" name="HR"/>
+        <menuitem id="menu_employee_remark_config" name="Configuration" parent="menu_employee_remark"/>
+        <menuitem id="menu_employee_type" name="Remark Type" parent="menu_employee_remark_config"
+                  action="action_remark_type" groups="employee_remarks.group_employee_remarks_managers"/>
+    </data>
+</openerp>

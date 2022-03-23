@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <report
+            id="action_report_country"
+            string="Country"
+            model="res.country.ept"
+            report_type="qweb-pdf"
+            multi="True"
+            name="res_localization_ept.report_country"
+        />
+    </data>
+</openerp>

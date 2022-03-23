@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <report
+            string="Remarks"
+            id="action_report_remark"
+            model="employee.remarks"
+            report_type="qweb-pdf"
+            name="employee_remarks.report_remark"
+            file="employee_remarks.report_remark"
+        />
+
+           <record id="view_employee_remark_from" model="ir.ui.view">
+            <field name="name">Employee Remarks</field>
+            <field name="model">report.employee_remarks.remark</field>
+            <field name="arch" type="xml">
+                <form string="Employee Remark">
+                   <sheet>
+                       <group>
+                           <group>
+                                <field name="review"/>
+                           </group>
+                           <group>
+                                <field name="employee_id"/>
+                           </group>
+                       </group>
+                   </sheet>
+                   <footer>
+                        <button name="print_report" string="Print" colspan="1" type="object" class="oe_highlight"/> or
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+
+         <record id="action_employee_remarks" model="ir.actions.act_window">
+            <field name="name">Employee Remark</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.employee_remarks.remark</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+           <menuitem action="action_employee_remarks"
+            id="menu_hr_employee_remark_report"
+            parent="employee_remarks.menu_employee_remark_root"/>
+    </data>
+</openerp>

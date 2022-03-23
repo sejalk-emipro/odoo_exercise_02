@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_employee_remarks_tree" model="ir.ui.view">
+            <field name="name">Employee Remarks</field>
+            <field name="model">employee.remarks</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Remarks Tree">
+                    <field name="sequence" />
+                    <field name="remark_type_id"/>
+                    <field name="review"/>
+                    <field name="employee_id"/>
+                    <field name="reviewer_id"/>
+                    <field name="display_remark_to_employee" invisible="1"/>
+                    <field name="isremarks"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_employee_remarks_form" model="ir.ui.view">
+            <field name="name">Employee Remarks</field>
+            <field name="model">employee.remarks</field>
+            <field name="arch" type="xml">
+                <form string="Employee Remarks form">
+                    <header>
+                        <button type="action" name="%(employee_remarks.action_notify_remarks)d" string="Notify Employee" attrs="{'invisible':[('display_remark_to_employee','=',True)]}" />
+                        <button name="%(employee_remarks.action_improvement_remarks)d" type="action" string="Improvement Review" attrs="{'invisible':['|',('review','=','Positive'),('state','not in',('Replied by employee'))]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sequence" invisible="1"/>
+                                <field name="employee_id" required='1' />
+                                <field name="reviewer_id" required='1'  />
+                                <field name="date" readonly="1"/>
+                                <field name="display_remark_to_employee" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="remark_type_id" required='1' />
+                                <field name="review" required='1' />
+                                <field name="isremarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="remark" required='1' />
+                        </group>
+                        <notebook>
+                            <page string="Improvement Remarks">
+                                <field name="improvement_remark_ids">
+                                    <tree string="Improvement Remarks" create="false">
+                                        <field name="remark" string="Remark"/>
+                                        <field name="review"/>
+                                        <field name="next_date"/>
+                                        <field name="improvement_days"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Employee comments">
+                                <field name="employee_comment_ids" readonly="1">
+                                    <tree string="Employee Comments">
+                                        <field name="comment" string="Comment"/>
+                                        <field name="date" string="Date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_remarks_search" model="ir.ui.view">
+            <field name="name">Employee Remarks</field>
+            <field name="model">employee.remarks</field>
+            <field name="arch" type="xml">
+                <search string="Employee Remarks Search">
+                    <field name="employee_id"/>
+                    <field name="reviewer_id"/>
+                    <field name = "state"/>
+                    <filter name="filter_isremarks" string="No. of Negative Remarks" domain="[('isremarks','=',1)]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="filter_state" string="State" context="{'group_by':'state'}"/>
+                        <filter name="filter_review" string="Review" context="{'group_by':'review'}"/>
+                        <filter name="filter_employee_id" string="Employee" context="{'group_by':'employee_id'}"/>
+                        <filter context="{'group_by':'remark_type_id'}" name="filter_remark_type" string="Remark Type"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_employee_remarks" model="ir.actions.act_window">
+            <field name="name">Employee Remarks</field>
+            <field name="res_model">employee.remarks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_employee_remarks_search"/>
+            <field name="domain">[('employee_id.user_id.id', '!=', uid)]</field>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the employee remarks</p>
+            </field>
+        </record>
+
+        <record id="view_my_remark_tree" model="ir.ui.view">
+            <field name="name">My Remarks</field>
+            <field name="model">employee.remarks</field>
+            <field name="arch" type="xml">
+                <tree string="My Remarks Tree" create ="false" delete="false">
+                    <field name="sequence"/>
+                    <field name="remark"/>
+                    <field name="review"/>
+                    <field name = "state"/>
+                    <button type="action" name="%(employee_remarks.action_employee_comment)d" string="Reply" attrs="{'invisible':[('state','in',('Replied by employee'))]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_my_remark_form" model="ir.ui.view">
+            <field name="name">My Remarks</field>
+            <field name="model">employee.remarks</field>
+            <field name="arch" type="xml">
+                <form string="My Remarks Form" create ="false" edit="false" delete="false">
+                    <header>
+                        <button type="action" name="%(employee_remarks.action_employee_comment)d" string="Reply" attrs="{'invisible':[('state','in',('Replied by employee'))]}"/>
+                    </header>
+                    <sheet>
+                        <group readonly="1">
+                            <field name="sequence"/>
+                            <field name="review"/>
+                            <field name = "state" invisible="1"/>
+                        </group>
+                        <group readonly="1">
+                            <field name="remark" />
+                        </group>
+                        <notebook>
+                            <page string="My Comments">
+                                <field name="employee_comment_ids" readonly="1">
+                                    <tree>
+                                        <field name="comment" string="Comment"/>
+                                        <field name="date" string="Date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_my_remark_search" model="ir.ui.view">
+            <field name="name">Employee Remarks</field>
+            <field name="model">employee.remarks</field>
+            <field name="arch" type="xml">
+                <search string="My Remarks Search">
+                    <field name="reviewer_id"/>
+                    <field name = "state"/>
+                    <group expand="0" string="Group By">
+                        <filter name="filter_state" string="State" context="{'group_by':'state'}"/>
+                        <filter name="filter_review" string="Review" context="{'group_by':'review'}"/>
+                        <filter context="{'group_by':'remark_type_id'}" name="filter_remark_type" string="Remark Type"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_my_remarks" model="ir.actions.act_window">
+            <field name="name">My Remark</field>
+            <field name="res_model">employee.remarks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="employee_remarks.view_my_remark_tree"/>
+            <field name="search_view_id" ref="view_my_remark_search"/>
+            <field name="domain">[('employee_id.user_id.id', '=', uid)]</field>
+            <field name="help" type="html">
+                <p>Here you can view the details of remarks</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_employee_remark_root" name="Employee Remark" parent="menu_employee_remark"/>
+        <menuitem id="menu_employee_remark_sub" name="Employee Remarks" parent="menu_employee_remark_root"
+                  action="action_employee_remarks" groups = "employee_remarks.group_employee_remarks_managers"/>
+        <menuitem id="menu_my_remark_sub" name="My Remarks" parent="menu_employee_remark_root"
+                  action="action_my_remarks"/>
+    </data>
+</openerp>

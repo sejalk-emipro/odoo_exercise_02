@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <template id="report_country">
+            <t t-call="report.html_container">
+                 <div class="page">
+                     <h2>Country</h2>
+                     <table class="table table-condensed">
+                         <thead>
+                             <tr>
+                                 <th><strong>Name</strong></th>
+                                 <th><strong>Code</strong></th>
+                             </tr>
+                         </thead>
+                         <div t-foreach="docs" t-as="o">
+                             <tbody>
+                                 <tr>
+                                     <td>
+                                         <span t-field="o.name"/>
+                                     </td>
+                                     <td>
+                                         <span t-field="o.code"/>
+                                     </td>
+                                 </tr>
+                             </tbody>
+                         </div>
+                     </table>
+                 </div>
+            </t>
+        </template>
+    </data>
+</openerp>

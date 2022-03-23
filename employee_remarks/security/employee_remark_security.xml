@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data noupdate="1">
+
+        <!--        Users of the employee remarks-->
+        <record model="ir.module.category" id="category_employee_remarks">
+            <field name="name">Employee Remarks</field>
+    	</record>
+
+        <record model="res.groups" id="group_employee_remarks_users">
+            <field name="name">User: Employee Remarks</field>
+            <field name="category_id" ref="category_employee_remarks"/>
+        </record>
+
+		<record model="res.groups" id="group_employee_remarks_managers">
+            <field name="name">Manager :Employee Remarks</field>
+	        <field name="category_id" ref="category_employee_remarks"/>
+			<field name="implied_ids" eval="[(4, ref('employee_remarks.group_employee_remarks_users'))]"/>
+        </record>
+
+    </data>
+    <data noupdate="1">
+        <record id="employee_remarks_record_rule" model="ir.rule">
+            <field name="name">Employee: Remarks Record Rule</field>
+	        <field name="model_id" ref="model_employee_remarks"/>
+            <field name="domain_force">[('employee_id.user_id','=',user.id),('display_remark_to_employee','=',True)]</field>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="0" name="perm_create"/>
+            <field name="groups" eval="[(4, ref('group_employee_remarks_users'))]"/>
+        </record>
+
+         <record id="manager_remarks_record_rule" model="ir.rule">
+             <field name="name">Manager: Remarks Record Rule</field>
+             <field name="model_id" ref="model_employee_remarks"/>
+             <field name="domain_force">[(1,'=',1)]</field>
+             <field eval="1" name="perm_read"/>
+             <field eval="1" name="perm_unlink"/>
+             <field eval="1" name="perm_write"/>
+             <field eval="1" name="perm_create"/>
+             <field name="groups" eval="[(4, ref('group_employee_remarks_managers'))]"/>
+        </record>
+    </data>
+</openerp>

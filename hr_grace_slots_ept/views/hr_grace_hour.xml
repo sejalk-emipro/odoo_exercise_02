@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_hr_grace_hour_tree" model="ir.ui.view">
+            <field name="name">HR Grace Hour</field>
+            <field name="model">hr.grace.hour</field>
+            <field name="arch" type="xml">
+                <tree string="Grace Hour Tree">
+                    <field name="name"/>
+                    <field name="slot_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_grace_hour_form" model="ir.ui.view">
+            <field name="name">HR Grace Hour</field>
+            <field name="model">hr.grace.hour</field>
+            <field name="arch" type="xml">
+                <form string="Grace Hour form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Grace slots">
+                                <field name="slot_ids">
+                                    <tree>
+                                        <field name="sequence"/>
+                                        <field name="name"/>
+                                        <field name="slot"/>
+                                        <field name="no_of_leave_days"/>
+                                    </tree>
+                                    <form string="Grace hour slot">
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="sequence"/>
+                                                    <field name="name"/>
+                                                </group>
+                                                <group>
+                                                    <field name="slot"/>
+                                                    <field name="no_of_leave_days"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_grace_hour_search" model="ir.ui.view">
+            <field name="name">HR Grace Hour</field>
+            <field name="model">hr.grace.hour</field>
+            <field name="arch" type="xml">
+                <search string="Grace Hour Search">
+                    <field name="name"/>
+                    <field name="slot_ids"/>
+                    <filter name="filter_action" domain="[('active','=',1)]" string="Active"/>
+                    <filter name="filter_inaction" domain="[('active','=',0)]" string="In Active"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Slot" name="filter_slot" context="{'group_by':'slot_ids'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+         <record model="ir.actions.act_window" id="action_hr_grace_hour">
+            <field name="name">Grace Hours</field>
+            <field name="res_model">hr.grace.hour</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_hr_grace_hour_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the employee grace slot</p>
+            </field>
+        </record>
+
+        <menuitem id="hr_configuration_menu"
+                   parent="employee_remarks.menu_employee_remark_config" name="Grace hour"/>
+         <menuitem action="action_hr_grace_hour" id="menu_hr_grace_hour_slot" name="Grace hours"
+                   parent="hr_configuration_menu"/>
+    </data>
+</openerp>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_hr_employee_grace_hours_tree" model="ir.ui.view">
+            <field name="name">Employee Grace Hour</field>
+            <field name="model">hr.employee.grace.hours</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Grace Hour Tree">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="grace_hour_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="consumed_time_minutes"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_grace_hours_form" model="ir.ui.view">
+            <field name="name">Employee Grace Hour</field>
+            <field name="model">hr.employee.grace.hours</field>
+            <field name="arch" type="xml">
+                <form string="Employee Grace Hour Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="employee_id"/>
+                                <field name="grace_hour_id" widget="selection"/>
+                            </group>
+                            <group>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="consumed_time_minutes"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_grace_hours_search" model="ir.ui.view">
+            <field name="name">Employee Grace Hour</field>
+            <field name="model">hr.employee.grace.hours</field>
+            <field name="arch" type="xml">
+                <search string="Employee Grace Hour Search">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="grace_hour_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="filter_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                        <filter name="filter_gracehour" string="Grace Hour" context="{'group_by':'grace_hour_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_hr_employee_grace_hour">
+            <field name="name">Employee Grace Hours</field>
+            <field name="res_model">hr.employee.grace.hours</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_hr_employee_grace_hours_search"/>
+            <field name="help" type="html">
+                <p>Here you can enter the details of the employee grace hours</p>
+            </field>
+        </record>
+
+        <menuitem action="action_hr_employee_grace_hour" id="menu_hr_employee_grace_hour" name="Employee Grace hours"
+                   parent="hr_configuration_menu"/>
+    </data>
+</openerp>

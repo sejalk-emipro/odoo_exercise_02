@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_remark_type,Managers: Employee Type,model_remark_type,employee_remarks.group_employee_remarks_managers,1,1,1,1
+access_remark_type_users,Base User: Employee Type,model_remark_type,base.group_user,1,1,1,1
+access_employee_remarks_employee,User: Employee Remarks,model_employee_remarks,employee_remarks.group_employee_remarks_users,1,1,0,0
+access_employee_remarks_manager,Manager: Employee Remarks,model_employee_remarks,employee_remarks.group_employee_remarks_managers,1,1,1,1
+access_employee_remarks_users,Base User: Employee Remarks,model_employee_remarks,base.group_user,1,0,0,0
+access_improvement_remarks_employee,User : Improvement Remark Employee,model_improvement_remarks,employee_remarks.group_employee_remarks_users,1,0,0,0
+access_improvement_remarks_user,Base User : Improvement Remark,model_improvement_remarks,base.group_user,1,1,1,0
+access_improvement_remarks_manager,Manager : Improvement Remark,model_improvement_remarks,employee_remarks.group_employee_remarks_managers,1,1,1,0
+access_employee_comments,User: Employee Comments,model_employee_comments,employee_remarks.group_employee_remarks_users,1,1,1,0
+access_employee_comments_manager,Manager: Employee Comments,model_employee_comments,employee_remarks.group_employee_remarks_managers,1,0,0,0
+access_employee_comments_user,Base User : Improvement Remark,model_employee_comments,base.group_user,1,0,0,0
+access_employee_comment_employee,User : Employee Comment,model_employee_comment,employee_remarks.group_employee_remarks_users,1,1,1,0
+access_improvement_remark_employee,Manager : Improvement Remark Employee,model_improvement_remark,employee_remarks.group_employee_remarks_managers,1,1,1,0
+access_notify_employee,Manager : Notify To Employee,model_notify_employee,employee_remarks.group_employee_remarks_managers,1,1,1,0

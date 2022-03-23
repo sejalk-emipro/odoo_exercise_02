@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <template id="report_remark">
+            <t t-call="report.html_container">
+                 <t t-call="report.external_layout">
+                    <div class="page">
+                         <h2>Employee Remarks</h2>
+                         <table class="table table-condensed">
+                             <thead>
+                                 <tr>
+                                     <th><strong>Sequence</strong></th>
+                                     <th><strong>Employee</strong></th>
+                                     <th><strong>Remark Type</strong></th>
+                                     <th><strong>Remark</strong></th>
+                                     <th><strong>Review</strong></th>
+                                     <th><strong>Date</strong></th>
+                                 </tr>
+                             </thead>
+                            <t t-foreach="docs" t-as="o">
+                                <div class="oe_structure"/>
+                                <tbody>
+                                 <tr>
+                                     <td><span t-field="o.sequence"/></td>
+                                     <td><span t-field="o.employee_id.name_related"/></td>
+                                     <td><span t-field="o.remark_type_id.name"/></td>
+                                     <td><span t-field="o.remark"/></td>
+                                     <td><span t-field="o.review"/></td>
+                                     <td><span t-field="o.date"/></td>
+                                 </tr>
+                                </tbody>
+                            </t>
+                         </table>
+                    </div>
+                 </t>
+            </t>
+        </template>
+    </data>
+</openerp>

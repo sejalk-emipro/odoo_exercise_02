@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_notify_employee_form" model="ir.ui.view">
+            <field name="name">Improvement Remark</field>
+            <field name="model">notify.employee</field>
+            <field name="arch" type="xml">
+                <form string="Improvement Remarks Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" readonly="1" />
+                                <field name = "review" invisible = "1"></field>
+    					        <field name= "improvement_days" required = "1" attrs="{'invisible': [('review', '=', 'Positive')]}"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="notifytoemployee" type="object"  string="Notify" class="oe_highlight"/>
+                            <button string="Cancel" special="cancel" class="oe_link" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_notify_remarks"
+            name="Notify"
+            res_model="notify.employee"
+            view_type="form" view_mode="form"
+            target="new" view_id="view_notify_employee_form"
+        groups = "employee_remarks.group_employee_remarks_managers"/>
+
+
+    </data>
+</openerp>

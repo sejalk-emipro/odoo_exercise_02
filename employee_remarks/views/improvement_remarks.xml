@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_improvement_remarks_form" model="ir.ui.view">
+            <field name="name">Improvement Remarks</field>
+            <field name="model">improvement.remarks</field>
+            <field name="arch" type="xml">
+                <form string="Improvement Remarks Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" readonly="1"/>
+                                <field name = "review"></field>
+    					        <field name= "improvement_days" required = "1" attrs="{'invisible': [('review', '=', 'Positive')]}"/>
+                                <field name="remark"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

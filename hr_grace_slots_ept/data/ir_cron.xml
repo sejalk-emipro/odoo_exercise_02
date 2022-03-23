@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="ir_cron_job_grace_hours_slot_allocation" model="ir.cron">
+            <field name="name">Grace Hours Slot Allocation</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False" />
+            <field eval="False" name="doall"/>
+            <field eval="'hr.employee.grace.hours'" name="model"/>
+            <field name="doall" eval="True" />
+            <field name="priority" eval="1" />
+            <field eval="'employee_grace_hours_slot_allocation'" name="function"/>
+        </record>
+            
+    </data>
+</openerp>

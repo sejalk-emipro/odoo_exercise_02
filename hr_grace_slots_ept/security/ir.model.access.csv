@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_grace_hour_manager,manager_hr_grace_hour,model_hr_grace_hour,base.group_hr_manager,1,1,1,0
+access_hr_grace_hour_slot_manager,manager_hr_grace_hour_slot,model_hr_grace_hour_slots,base.group_hr_manager,1,1,1,0
+access_hr_employee_grace_hour_manager,manager_hr_employee_grace_hour,model_hr_employee_grace_hours,base.group_hr_manager,1,1,1,0
